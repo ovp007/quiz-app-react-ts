@@ -1,14 +1,15 @@
-import React, { FC } from "react";
-import { Action, ActionType } from "../constants/constants";
+import { FC } from "react";
+import { ActionType } from "../constants/constants";
 import { IQuestion } from "../App";
+import { useQuiz } from "../context/useQuiz";
 interface OptionProps {
-  dispatch: React.Dispatch<Action>;
   question: IQuestion;
   answerIndex: number;
 }
 
-const Options: FC<OptionProps> = ({ dispatch, question, answerIndex }) => {
+const Options: FC<OptionProps> = ({ question, answerIndex }) => {
   const hasAnswered = answerIndex !== -1;
+  const { dispatch } = useQuiz();
   return (
     <div className="options">
       {question.options?.map((option, index) => (
