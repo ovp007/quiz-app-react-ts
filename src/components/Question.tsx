@@ -1,47 +1,25 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { IQuestion } from "../App";
-import { Action, ActionType, AppStatus } from "../constants/constants";
+import { ActionType, AppStatus } from "../constants/constants";
 import ProgressBar from "./ProgressBar";
 
 import Options from "./Options";
+import { useQuiz } from "../context/useQuiz";
 
 interface QuestionProps {
   question: IQuestion;
-  dispatch: React.Dispatch<Action>;
-  currentQuestionIndex: number;
-  numOfQuestions: number;
-  score: number;
-  status: AppStatus;
   answerIndex: number;
-  maxPoints: number;
 }
 
-const Question: FC<QuestionProps> = ({
-  question,
-  dispatch,
-  currentQuestionIndex,
-  numOfQuestions,
-  score,
-  status,
-  answerIndex,
-  maxPoints,
-}) => {
+const Question: FC<QuestionProps> = ({ question, answerIndex }) => {
+  const { status, dispatch } = useQuiz();
   return (
     <div>
       <h4>{question.question}</h4>
-      <ProgressBar
-        numOfQuestions={numOfQuestions}
-        currentQuestionIndex={currentQuestionIndex}
-        score={score}
-        maxPoints={maxPoints}
-      />
+      <ProgressBar />
 
       {status === AppStatus.active && (
-        <Options
-          dispatch={dispatch}
-          question={question}
-          answerIndex={answerIndex}
-        />
+        <Options question={question} answerIndex={answerIndex} />
       )}
 
       {answerIndex !== -1 && (

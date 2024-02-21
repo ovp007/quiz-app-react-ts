@@ -1,18 +1,8 @@
 import { FC } from "react";
+import { useQuiz } from "../context/useQuiz";
 
-interface ProgressBarProps {
-  numOfQuestions: number;
-  currentQuestionIndex: number;
-  score: number;
-  maxPoints: number;
-}
-
-const ProgressBar: FC<ProgressBarProps> = ({
-  numOfQuestions,
-  currentQuestionIndex,
-  score,
-  maxPoints,
-}) => {
+const ProgressBar: FC = () => {
+  const { numOfQuestions, score, currentQuestionIndex, maxPoints } = useQuiz();
   return (
     <header className="progress">
       <progress value={currentQuestionIndex + 1} max={numOfQuestions} />
